@@ -9,14 +9,29 @@ interface IUser extends Document {
 
 const userSchema = new mongoose.Schema<IUser>(
   {
-    username: { type: String, required: true, unique: true },
-    email: { type: String, required: true, unique: true },
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+      minlength: 3,
+      maxlength: 20,
+      match: [
+        /^[a-zA-Z0-9_]+$/,
+        "El username solo puede contener letras, números y guiones bajos.",
+      ],
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Formato de email inválido."],
+    },
     password: { type: String, required: true },
     links: [{ type: mongoose.Schema.Types.ObjectId, ref: "Link" }],
   },
   { timestamps: false }
 );
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema, "users");
 
 export default User;
