@@ -1,15 +1,34 @@
 import User from "../models/User";
-import { IUserData } from "../helpers/interfaces/userInterfaces";
+import { IUserData, ILogInData } from "../helpers/interfaces/userInterfaces";
 
 export default {
   registerUser: async (userData: IUserData) => {
-    const userExists = await User.findOne({ email: userData.email });
+    const userEmailExists = await User.findOne({ email: userData.email });
+    const userNameExists = await User.findOne({ username: userData.username });
 
-    if (userExists) {
-      throw new Error("El usuario ya existe");
+    if (userEmailExists) {
+      throw new Error("El email ingresado ya está registrado");
+    }
+
+    if (userNameExists) {
+      throw new Error("El nombre de usuario ingresado ya está registrado");
     }
 
     const newUser = await User.create(userData);
     return newUser;
+  },
+
+  logIn: async (userData: ILogInData) => {
+    const user =
+      (await User.findOne({ email: userData.userOrEmail })) ||
+      (await User.findOne({ username: userData.userOrEmail }));
+
+    if (!user) throw new Error("El usuario o email ingresado no es válido");
+
+    if (user.password === userData.password) {
+      return user;
+    } else {
+      throw new Error("La contraseña es incorrecta");
+    }
   },
 };
