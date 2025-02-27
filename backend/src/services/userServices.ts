@@ -2,7 +2,7 @@ import User from "../models/User";
 import { IUserData, ILogInData } from "../helpers/interfaces/userInterfaces";
 
 export default {
-  registerUser: async (userData: IUserData) => {
+  signUp: async (userData: IUserData) => {
     const userEmailExists = await User.findOne({ email: userData.email });
     const userNameExists = await User.findOne({ username: userData.username });
 

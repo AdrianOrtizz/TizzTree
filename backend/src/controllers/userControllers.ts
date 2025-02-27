@@ -5,11 +5,11 @@ import userServices from "../services/userServices";
 import { ILogInData } from "../helpers/interfaces/userInterfaces";
 
 export default {
-  registerUser: async (req: Request, res: Response) => {
+  signUp: async (req: Request, res: Response) => {
     const { username, email, password } = req.body;
 
     try {
-      const newUser = await userServices.registerUser({
+      const newUser = await userServices.signUp({
         username,
         email,
         password,
