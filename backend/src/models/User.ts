@@ -2,6 +2,7 @@ import mongoose, { Document } from "mongoose";
 
 interface IUser extends Document {
   username: string;
+  name: string;
   email: string;
   password: string;
   links: mongoose.Types.ObjectId[];
@@ -15,6 +16,14 @@ const userSchema = new mongoose.Schema<IUser>(
       unique: true,
       minlength: 3,
       maxlength: 20,
+      match: [
+        /^[a-zA-Z0-9_]+$/,
+        "El username solo puede contener letras, números y guiones bajos.",
+      ],
+    },
+    name: {
+      type: String,
+      required: false,
       match: [
         /^[a-zA-Z0-9_]+$/,
         "El username solo puede contener letras, números y guiones bajos.",

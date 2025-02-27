@@ -1,5 +1,6 @@
 export interface IUserData {
   username: string;
+  name?: string;
   email: string;
   password: string;
 }
@@ -7,4 +8,14 @@ export interface IUserData {
 export interface ILogInData {
   userOrEmail: string;
   password: string;
+}
+
+export interface IUserDataToModify {
+  userID: string;
+  dataToUpdate: {
+    newUsername?: string;
+    newName?: string;
+    newEmail?: string;
+    newPassword?: string;
+  };
 }

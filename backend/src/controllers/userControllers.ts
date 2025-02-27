@@ -38,4 +38,18 @@ export default {
         .json({ message: (error as any)?.message || "Error desconocido" });
     }
   },
+
+  modifyUser: async (req: Request, res: Response) => {
+    const { userID, dataToUpdate } = req.body;
+    console.log(req.body);
+
+    try {
+      const modified = await userServices.modifyUser({ userID, dataToUpdate });
+      res.status(201).json(modified);
+    } catch (error: unknown) {
+      res
+        .status(400)
+        .json({ message: (error as any)?.message || "Error desconocido" });
+    }
+  },
 };

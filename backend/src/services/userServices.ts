@@ -1,5 +1,9 @@
 import User from "../models/User";
-import { IUserData, ILogInData } from "../helpers/interfaces/userInterfaces";
+import {
+  IUserData,
+  ILogInData,
+  IUserDataToModify,
+} from "../helpers/interfaces/userInterfaces";
 
 export default {
   signUp: async (userData: IUserData) => {
@@ -30,5 +34,24 @@ export default {
     } else {
       throw new Error("La contraseña es incorrecta");
     }
+  },
+
+  modifyUser: async (userData: IUserDataToModify) => {
+    const user = await User.findById(userData.userID);
+    const { dataToUpdate } = userData;
+
+    console.log(userData);
+    console.log(user);
+
+    if (!user) throw new Error("No se encontró al usuario");
+
+    if (dataToUpdate.newEmail) user.email = dataToUpdate.newEmail;
+    if (dataToUpdate.newUsername) user.username = dataToUpdate.newUsername;
+    if (dataToUpdate.newName) user.name = dataToUpdate.newName;
+    if (dataToUpdate.newPassword) user.password = dataToUpdate.newPassword;
+
+    await user.save();
+
+    return { message: "Datos actualizados correctamente" };
   },
 };
