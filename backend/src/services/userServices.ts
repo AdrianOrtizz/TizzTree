@@ -1,9 +1,12 @@
 import User from "../models/User";
+
 import {
   IUserData,
   ILogInData,
   IUserDataToModify,
 } from "../helpers/interfaces/userInterfaces";
+
+import { hashPassword, comparePasswords } from "../helpers/hashPassword";
 
 export default {
   signUp: async (userData: IUserData) => {
@@ -18,7 +21,12 @@ export default {
       throw new Error("El nombre de usuario ingresado ya está registrado");
     }
 
-    const newUser = await User.create(userData);
+    const hashedPassword = await hashPassword(userData.password);
+
+    const newUser = await User.create({
+      ...userData,
+      password: hashedPassword,
+    });
     return newUser;
   },
 
@@ -29,7 +37,9 @@ export default {
 
     if (!user) throw new Error("El usuario o email ingresado no es válido");
 
-    if (user.password === userData.password) {
+    const match = await comparePasswords(userData.password, user.password);
+
+    if (match) {
       return user;
     } else {
       throw new Error("La contraseña es incorrecta");
