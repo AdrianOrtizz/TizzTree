@@ -10,4 +10,6 @@ userRouter.post("/signUp", userControllers.signUp);
 
 userRouter.put("/modify", userControllers.modifyUser);
 
+userRouter.delete("/deleted/:id", userControllers.deleteUser);
+
 export default userRouter;

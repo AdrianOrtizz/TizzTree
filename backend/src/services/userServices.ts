@@ -54,4 +54,12 @@ export default {
 
     return { message: "Datos actualizados correctamente" };
   },
+
+  deleteUser: async (id: string) => {
+    const user = await User.findByIdAndDelete(id);
+
+    if (!user) throw new Error("Usuario no encontrado");
+
+    return { message: "Usuario eliminado correctamente" };
+  },
 };

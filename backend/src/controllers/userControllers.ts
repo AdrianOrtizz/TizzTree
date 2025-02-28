@@ -6,11 +6,13 @@ import { ILogInData } from "../helpers/interfaces/userInterfaces";
 
 export default {
   signUp: async (req: Request, res: Response) => {
-    const { username, email, password } = req.body;
+    const { username, name, email, password, image } = req.body;
 
     try {
       const newUser = await userServices.signUp({
+        image,
         username,
+        name,
         email,
         password,
       });
@@ -41,11 +43,22 @@ export default {
 
   modifyUser: async (req: Request, res: Response) => {
     const { userID, dataToUpdate } = req.body;
-    console.log(req.body);
 
     try {
       const modified = await userServices.modifyUser({ userID, dataToUpdate });
       res.status(201).json(modified);
+    } catch (error: unknown) {
+      res
+        .status(400)
+        .json({ message: (error as any)?.message || "Error desconocido" });
+    }
+  },
+
+  deleteUser: async (req: Request, res: Response) => {
+    const { id } = req.query;
+    try {
+      const deleted = await userServices.deleteUser(id as string);
+      res.status(200).json(deleted);
     } catch (error: unknown) {
       res
         .status(400)
