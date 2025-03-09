@@ -38,4 +38,12 @@ export default {
 
     return { message: "Link eliminado correctamente" };
   },
+
+  getUserLinks: async (username: string) => {
+    const userToFind = await User.findOne({ username }).populate("links");
+
+    if (!userToFind) throw new Error("Usuario no encontrado");
+
+    return userToFind.links;
+  },
 };

@@ -45,4 +45,17 @@ export default {
         .json({ message: (error as any)?.message || "Error desconocido" });
     }
   },
+
+  getUserLinks: async (req: Request, res: Response) => {
+    const { username } = req.params;
+
+    try {
+      const userLinks = await linkServices.getUserLinks(username);
+      res.status(200).json(userLinks);
+    } catch (error: unknown) {
+      res
+        .status(400)
+        .json({ message: (error as any)?.message || "Error desconocido" });
+    }
+  },
 };
