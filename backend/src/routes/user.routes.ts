@@ -5,6 +5,7 @@ import userControllers from "../controllers/userControllers";
 const userRouter = Router();
 
 userRouter.get("/logIn", userControllers.logIn);
+userRouter.get("/", userControllers.getAllUsers);
 
 userRouter.post("/signUp", userControllers.signUp);
 

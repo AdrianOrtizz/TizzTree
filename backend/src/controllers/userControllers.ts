@@ -65,4 +65,15 @@ export default {
         .json({ message: (error as any)?.message || "Error desconocido" });
     }
   },
+
+  getAllUsers: async (req: Request, res: Response) => {
+    try {
+      const users = await userServices.getAllUsers();
+      res.status(200).json(users);
+    } catch (error: unknown) {
+      res
+        .status(400)
+        .json({ message: (error as any)?.message || "Error desconocido" });
+    }
+  },
 };

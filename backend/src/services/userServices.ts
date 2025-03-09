@@ -72,4 +72,10 @@ export default {
 
     return { message: "Usuario eliminado correctamente" };
   },
+
+  getAllUsers: async () => {
+    const users = await User.find();
+    if (users) return users;
+    else return { message: "No hay usuarios para mostrar" };
+  },
 };
