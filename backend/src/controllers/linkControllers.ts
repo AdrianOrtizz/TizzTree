@@ -4,10 +4,10 @@ import linkServices from "../services/linkServices";
 
 export default {
   addLink: async (req: Request, res: Response) => {
-    const { title, url, userID } = req.body;
+    const { title, url, image, userID } = req.body;
 
     try {
-      const newLink = await linkServices.addLink({ title, url, userID });
+      const newLink = await linkServices.addLink({ title, url, image, userID });
       res.status(201).json(newLink);
     } catch (error: unknown) {
       res
@@ -17,8 +17,8 @@ export default {
   },
 
   modifyLink: async (req: Request, res: Response) => {
-    const { title, url, linkID } = req.body;
-    const update = { title, url };
+    const { title, url, image, linkID } = req.body;
+    const update = { title, url, image };
 
     try {
       const linkModified = await linkServices.modifyLink({

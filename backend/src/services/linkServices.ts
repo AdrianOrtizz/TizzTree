@@ -8,8 +8,8 @@ import {
 } from "../helpers/interfaces/linkInterfaces";
 
 export default {
-  addLink: async ({ title, url, userID }: ILinkData) => {
-    const newLink = await Link.create({ title, url, user: userID });
+  addLink: async ({ title, url, image, userID }: ILinkData) => {
+    const newLink = await Link.create({ title, url, image, user: userID });
 
     await User.findByIdAndUpdate(userID, { $push: { links: newLink._id } });
 

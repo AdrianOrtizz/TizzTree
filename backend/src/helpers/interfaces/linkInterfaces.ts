@@ -1,6 +1,7 @@
 export interface ILinkData {
   title: string;
   url: string;
+  image?: string;
   userID: string;
 }
 
@@ -14,5 +15,6 @@ export interface ILinkToModify {
   update: {
     title?: string;
     url?: string;
+    image?: string;
   };
 }
