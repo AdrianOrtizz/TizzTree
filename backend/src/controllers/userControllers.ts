@@ -6,13 +6,11 @@ import { ILogInData } from "../helpers/interfaces/userInterfaces";
 
 export default {
   signUp: async (req: Request, res: Response) => {
-    const { username, name, email, password, image } = req.body;
+    const { username, email, password } = req.body;
 
     try {
       const newUser = await userServices.signUp({
-        image,
         username,
-        name,
         email,
         password,
       });

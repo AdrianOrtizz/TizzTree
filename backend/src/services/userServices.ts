@@ -50,11 +50,9 @@ export default {
     const user = await User.findById(userData.userID);
     const { dataToUpdate } = userData;
 
-    console.log(userData);
-    console.log(user);
-
     if (!user) throw new Error("No se encontró al usuario");
 
+    if (dataToUpdate.newImage) user.image = dataToUpdate.newImage;
     if (dataToUpdate.newEmail) user.email = dataToUpdate.newEmail;
     if (dataToUpdate.newUsername) user.username = dataToUpdate.newUsername;
     if (dataToUpdate.newName) user.name = dataToUpdate.newName;

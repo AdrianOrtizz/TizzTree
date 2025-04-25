@@ -14,6 +14,7 @@ export interface ILogInData {
 export interface IUserDataToModify {
   userID: string;
   dataToUpdate: {
+    newImage?: string;
     newUsername?: string;
     newName?: string;
     newEmail?: string;
