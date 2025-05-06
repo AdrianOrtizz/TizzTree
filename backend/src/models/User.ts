@@ -24,8 +24,8 @@ const userSchema = new mongoose.Schema<IUser>(
       minlength: 3,
       maxlength: 20,
       match: [
-        /^[a-zA-Z0-9_]+$/,
-        "El username solo puede contener letras, números y guiones bajos.",
+        /^[a-zA-Z0-9._]+$/,
+        "El username solo puede contener letras, números, puntos y guiones bajos.",
       ],
     },
     name: {

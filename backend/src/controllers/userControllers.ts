@@ -16,10 +16,12 @@ export default {
       });
 
       res.status(201).json(newUser);
-    } catch (error: unknown) {
-      res
-        .status(400)
-        .json({ message: (error as any)?.message || "Error desconocido" });
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(400).json({ message: error.message });
+      } else {
+        res.status(500).json({ message: "Error desconocido" });
+      }
     }
   },
 
@@ -32,10 +34,12 @@ export default {
         password,
       } as ILogInData);
       res.status(200).json(user);
-    } catch (error: unknown) {
-      res
-        .status(400)
-        .json({ message: (error as any)?.message || "Error desconocido" });
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(400).json({ message: error.message });
+      } else {
+        res.status(500).json({ message: "Error desconocido" });
+      }
     }
   },
 
@@ -45,10 +49,12 @@ export default {
     try {
       const modified = await userServices.modifyUser({ userID, dataToUpdate });
       res.status(201).json(modified);
-    } catch (error: unknown) {
-      res
-        .status(400)
-        .json({ message: (error as any)?.message || "Error desconocido" });
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(400).json({ message: error.message });
+      } else {
+        res.status(500).json({ message: "Error desconocido" });
+      }
     }
   },
 
@@ -57,10 +63,12 @@ export default {
     try {
       const deleted = await userServices.deleteUser(id as string);
       res.status(200).json(deleted);
-    } catch (error: unknown) {
-      res
-        .status(400)
-        .json({ message: (error as any)?.message || "Error desconocido" });
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(400).json({ message: error.message });
+      } else {
+        res.status(500).json({ message: "Error desconocido" });
+      }
     }
   },
 
@@ -68,10 +76,12 @@ export default {
     try {
       const users = await userServices.getAllUsers();
       res.status(200).json(users);
-    } catch (error: unknown) {
-      res
-        .status(400)
-        .json({ message: (error as any)?.message || "Error desconocido" });
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(400).json({ message: error.message });
+      } else {
+        res.status(500).json({ message: "Error desconocido" });
+      }
     }
   },
 };
